@@ -24,6 +24,7 @@ class DonutGame:
     """Start the main loop for the game"""
     while True:
       self._check_events()
+      self.koen.update()
       self._update_screen()
 
   def _check_events(self):
@@ -32,6 +33,29 @@ class DonutGame:
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         sys.exit()
+
+      elif event.type == pygame.KEYDOWN:
+        self._check_keydown_events(event)
+
+      elif event.type == pygame.KEYUP:
+        self._check_keyup_events(event)
+
+
+  def _check_keydown_events(self, event):
+    """Respond to key presses."""
+    if event.key == pygame.K_RIGHT:
+      self.koen.move_right = True
+    elif event.key == pygame.K_LEFT:
+      self.koen.move_left = True
+    elif event.key == pygame.K_q:
+      sys.exit()
+
+  def _check_keyup_events(self, event):
+    """Respond to key releases"""
+    if event.key == pygame.K_RIGHT:
+      self.koen.move_right = False
+    elif event.key == pygame.K_LEFT:
+      self.koen.move_left = False
 
   def _update_screen(self):
     """Update images on the screen and flip to the next screen."""
